@@ -9,4 +9,8 @@ rule kallisto_quant:
         config["kallisto_out"] + "/{sample}/run_info.json"
     conda:
         "../envs/kallisto.yaml"
+    params:
+        out_dir = config["kallisto_out"] + "/{sample}/bootstraps"
+    shell:
+        "kallisto quant -i {input[0]}" -o {params.out_dir} -b 100 {input[1]} {input[2]}
     
